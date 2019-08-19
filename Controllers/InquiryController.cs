@@ -19,21 +19,20 @@ namespace TestWebApiXml.Controllers
         {
             string xml = "";
 
-               XmlWriterSettings settings = new XmlWriterSettings()
-                {
-                    Encoding = Encoding.UTF8,
-                    NamespaceHandling=NamespaceHandling.OmitDuplicates
-                };
-
-            var inquiry = new Inquiry { DocumentID = "A2",BuyInfo=new BuyInfo {AgencyCode=100,PartyId=200 } };
+            var inquiry = new Inquiry { DocumentID = "A2", BuyInfo = new BuyInfo { AgencyCode = 100, PartyId = 200 } };
 
             XmlSerializer serializer = new XmlSerializer(typeof(Inquiry));
 
             using (var sww = new MemoryStream())
             {
 
- 
-                using (XmlWriter writer = XmlWriter.Create(sww,settings))
+                XmlWriterSettings settings = new XmlWriterSettings()
+                {
+                    Encoding = Encoding.UTF8,
+                    NamespaceHandling = NamespaceHandling.OmitDuplicates
+                };
+
+                using (XmlWriter writer = XmlWriter.Create(sww, settings))
                 {
                     XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
 
@@ -41,11 +40,11 @@ namespace TestWebApiXml.Controllers
 
                     ns.Add("", "");
 
-                    serializer.Serialize(writer, inquiry,ns);
+                    serializer.Serialize(writer, inquiry, ns);
 
                     xml = Encoding.UTF8.GetString(sww.ToArray()); ;
                 }
-             }
+            }
             return Content(xml, "text/xml");
         }
     }
