@@ -7,10 +7,9 @@ using System.Xml.Serialization;
 
 namespace TestWebApiXml.Models
 {
-    [XmlRoot("Inquiry", Namespace = "http://www.reifen.net/",IsNullable = false)]
+    [XmlRoot("Inquiry", Namespace = "http://www.w3.org/TR/html4/", IsNullable = false)]
     public class Inquiry
     {
-        [XmlElement(Namespace = "")]
         public string DocumentID { get; set; }
         [XmlElement(Namespace ="")]
         public BuyInfo BuyInfo { get; set; }

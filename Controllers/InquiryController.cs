@@ -19,25 +19,31 @@ namespace TestWebApiXml.Controllers
         {
             string xml = "";
 
-            var a = new Inquiry { DocumentID = "A2",BuyInfo=new BuyInfo {AgencyCode=100,PartyId=200 } };
+               XmlWriterSettings settings = new XmlWriterSettings()
+                {
+                    Encoding = Encoding.UTF8,
+                    NamespaceHandling=NamespaceHandling.OmitDuplicates
+                };
+
+            var inquiry = new Inquiry { DocumentID = "A2",BuyInfo=new BuyInfo {AgencyCode=100,PartyId=200 } };
 
             XmlSerializer serializer = new XmlSerializer(typeof(Inquiry));
 
             using (var sww = new MemoryStream())
             {
-                XmlWriterSettings settings = new XmlWriterSettings()
-                {
-                    Encoding = Encoding.UTF8,
-                    NamespaceHandling=NamespaceHandling.OmitDuplicates
-                };
+
+ 
                 using (XmlWriter writer = XmlWriter.Create(sww,settings))
                 {
                     XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
                     ns.Add("ew", "http://www.w3.org/TR/html4/");
+
                     ns.Add("", "");
-                    serializer.Serialize(writer, a,ns);
-                   // xml = sww.ToString(); // Your XML
-                   xml = Encoding.UTF8.GetString(sww.ToArray()); ;
+
+                    serializer.Serialize(writer, inquiry,ns);
+
+                    xml = Encoding.UTF8.GetString(sww.ToArray()); ;
                 }
              }
             return Content(xml, "text/xml");
