@@ -5,4 +5,15 @@ To start using an XMLSerializer object we must create an object with the type of
 ```
 XmlSerializer serializer = new XmlSerializer(typeof(Inquiry));
 ```
-Here Inquiery is the object that is going to be serialized.
+Here, Inquiery is the object that is going to be serialized.
+
+## Changing encoding
+By default, the xml encoding is utf-16, if you want to change it, you must to use:XmlWriterSettings
+```
+XmlWriterSettings settings = new XmlWriterSettings()
+                {
+                    Encoding = Encoding.UTF8,
+                    NamespaceHandling = NamespaceHandling.OmitDuplicates
+                };
+```
+> **Note**: If you need to change the encoding, you must use MemoryStream, if for example you use StringBuilder, the encoding will not applied to the final xml.
