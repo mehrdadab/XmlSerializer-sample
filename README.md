@@ -16,4 +16,15 @@ XmlWriterSettings settings = new XmlWriterSettings()
                     NamespaceHandling = NamespaceHandling.OmitDuplicates
                 };
 ```
-> **Note**: If you need to change the encoding, you must use MemoryStream, if for example you use StringBuilder, the encoding will not applied to the final xml.
+> **Note**: If you need to change the encoding, you must use MemoryStream, if for example you use StringBuilder, the encoding will not be applied to the final xml.
+## Changing namespaces
+By default, XmlSerializer add a namespace to the created xml. If you need to change it, you should use XmlSerializerNamespaces as below:
+```
+  XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                    ns.Add("ew", "http://www.w3.org/TR/html4/");
+
+                    ns.Add("", "");
+
+                    serializer.Serialize(writer, inquiry, ns);
+```
