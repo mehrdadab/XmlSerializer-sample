@@ -59,3 +59,15 @@ Then you need to add an attribute to the property you want to clear its namespac
     }
 	
 ```
+On the code above, adding ```[XmlElement(Namespace ="")]``` means we don't want BuyInfo to have same prefix as the root so Instead of having:
+```
+<ew:Inquiry>
+<ew:BuyInfo>content</ew:BuyInfo>
+</ew:Inquiry>
+```
+We will have:
+```
+<ew:Inquiry>
+<BuyInfo>content</BuyInfo>
+</ew:Inquiry>
+```
