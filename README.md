@@ -28,6 +28,16 @@ By default, XmlSerializer add a namespace to the created xml. If you need to cha
 
                     serializer.Serialize(writer, inquiry, ns);
 ```
+Then you must use XmlElement to add your defined namespace prefix to element so for example after adding 
+```ns.Add("ew", "http://www.w3.org/TR/html4/");```
+By using XmlRoot for root or XmlElement for properties you can add ew as a prefix to the xml element. as a sample when I add
+```[XmlRoot("Inquiry", Namespace = "http://www.w3.org/TR/html4/", IsNullable = false)]```
+my result will be like 
+```
+<ew:Inquiry>
+content
+</ew:Inquiry>
+```
 >**Note**: You can add as many as namespace you want
 ## Clearing Namespace
 Sometimes, you need to clear an added namespace, to do that you must first add an empty namespace as below:
