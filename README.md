@@ -28,3 +28,24 @@ By default, XmlSerializer add a namespace to the created xml. If you need to cha
 
                     serializer.Serialize(writer, inquiry, ns);
 ```
+>**Note**: You can add as many as namespace you want
+## Clearing Namespace
+Sometimes, you need to clear an added namespace, to do that you must first add an empty namespace as below:
+```
+XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                    ns.Add("ew", "http://www.w3.org/TR/html4/");
+
+                    ns.Add("", "");
+```
+Then you need to add an attribute to the property you want to clear its namespace. On the code below, I want to clear the namespace assigned to BuyInfo:
+```
+    [XmlRoot("Inquiry", Namespace = "http://www.w3.org/TR/html4/", IsNullable = false)]
+    public class Inquiry
+    {
+        public string DocumentID { get; set; }
+        [XmlElement(Namespace ="")]
+        public BuyInfo BuyInfo { get; set; }
+    }
+	
+```
